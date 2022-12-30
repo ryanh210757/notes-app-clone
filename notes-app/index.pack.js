@@ -1022,9 +1022,16 @@ function App() {
 
     function updateNote(text) {
         setNotes(function (oldNotes) {
-            return oldNotes.map(function (oldNote) {
-                return oldNote.id === currentNoteId ? _extends({}, oldNote, { body: text }) : oldNote;
-            });
+            var newArray = [];
+            for (var i = 0; i < oldNotes.length; i++) {
+                var oldNote = oldNotes[i];
+                if (oldNote.id === currentNoteId) {
+                    newArray.unshift(_extends({}, oldNote, { body: text }));
+                } else {
+                    newArray.push(oldNote);
+                }
+            }
+            return newArray;
         });
     }
 
@@ -1200,19 +1207,7 @@ var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/**
-    * Challenge: Try to figure out a way to display only the 
-    * first line of note.body as the note summary in the
-    * sidebar.
-    * 
-    * Hint 1: note.body has "invisible" newline characters
-    * in the text every time there's a new line shown. E.g.
-    * the text in Note 1 is:
-    * "# Note summary\n\nBeginning of the note"
-    * 
-    * Hint 2: See if you can split the string into an array
-    * using the "\n" newline character as the divider
-    */
+//use note.body.split to get first line of note as preview
 
 function Sidebar(props) {
     var noteElements = props.notes.map(function (note, index) {
