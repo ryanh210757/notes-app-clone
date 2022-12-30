@@ -8,7 +8,7 @@ export default function Editor({ currentNote, updateNote }) {
     const converter = new Showdown.Converter({
         tables: true,
         simplifiedAutoLink: true,
-        strikethrough: true,
+        strikethrough: true, 
         tasklists: true,
     })  
 

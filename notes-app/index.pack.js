@@ -988,24 +988,16 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
  * to fully understand everything to move on)
  */
 
-/**
-     * Challenge:
-     * 1. Every time the `notes` array changes, save it 
-     *    in localStorage. You'll need to use JSON.stringify()
-     *    to turn the array into a string to save in localStorage.
-     * 2. When the app first loads, initialize the notes state
-     *    with the notes saved in localStorage. You'll need to
-     *    use JSON.parse() to turn the stringified array back
-     *    into a real JS array.
-     */
-
+//initializes notes state with localStorage
 function App() {
     var _React$useState = _react2.default.useState(JSON.parse(localStorage.getItem("note")) || []),
         _React$useState2 = _slicedToArray(_React$useState, 2),
         notes = _React$useState2[0],
         setNotes = _React$useState2[1];
 
-    var _React$useState3 = _react2.default.useState(notes[0] && notes[0].id || ""),
+    var _React$useState3 = _react2.default.useState(function () {
+        return notes[0] && notes[0].id || "";
+    }),
         _React$useState4 = _slicedToArray(_React$useState3, 2),
         currentNoteId = _React$useState4[0],
         setCurrentNoteId = _React$useState4[1];
@@ -1208,6 +1200,20 @@ var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/**
+    * Challenge: Try to figure out a way to display only the 
+    * first line of note.body as the note summary in the
+    * sidebar.
+    * 
+    * Hint 1: note.body has "invisible" newline characters
+    * in the text every time there's a new line shown. E.g.
+    * the text in Note 1 is:
+    * "# Note summary\n\nBeginning of the note"
+    * 
+    * Hint 2: See if you can split the string into an array
+    * using the "\n" newline character as the divider
+    */
+
 function Sidebar(props) {
     var noteElements = props.notes.map(function (note, index) {
         return _react2.default.createElement(
@@ -1225,8 +1231,7 @@ function Sidebar(props) {
                 _react2.default.createElement(
                     "h4",
                     { className: "text-snippet" },
-                    "Note ",
-                    index + 1
+                    note.body.split("/n")[0]
                 )
             )
         );
