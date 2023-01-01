@@ -41,9 +41,9 @@ export default function App() {
             const newArray = []
             for(let i = 0; i < oldNotes.length; i++) {
                 if(oldNotes[i].id === currentNoteId) {
-                    newArray.unshift({ ...oldNote, body: text })
+                    newArray.unshift({ ...oldNotes, body: text })
                 } else {
-                    newArray.push(oldNote)
+                    newArray.push(oldNotes)
                 }
             }
             return newArray

@@ -1024,11 +1024,10 @@ function App() {
         setNotes(function (oldNotes) {
             var newArray = [];
             for (var i = 0; i < oldNotes.length; i++) {
-                var oldNote = oldNotes[i];
-                if (oldNote.id === currentNoteId) {
-                    newArray.unshift(_extends({}, oldNote, { body: text }));
+                if (oldNotes[i].id === currentNoteId) {
+                    newArray.unshift(_extends({}, oldNotes, { body: text }));
                 } else {
-                    newArray.push(oldNote);
+                    newArray.push(oldNotes);
                 }
             }
             return newArray;
@@ -1227,6 +1226,11 @@ function Sidebar(props) {
                     "h4",
                     { className: "text-snippet" },
                     note.body.split("/n")[0]
+                ),
+                _react2.default.createElement(
+                    "button",
+                    { className: "delete-btn" },
+                    _react2.default.createElement("i", { className: "gg-trash trash-icon" })
                 )
             )
         );
