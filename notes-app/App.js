@@ -37,13 +37,15 @@ export default function App() {
     
 
     function updateNote(text) {
-        setNotes(oldNotes => {
+        // Put the most recently-modified note at the top
+        setNotes(prev => {
             const newArray = []
-            for(let i = 0; i < oldNotes.length; i++) {
-                if(oldNotes[i].id === currentNoteId) {
-                    newArray.unshift({ ...oldNotes, body: text })
-                } else {
-                    newArray.push(oldNotes)
+            for(let i = 0; i < prev.length; i++){
+                const prevIndex = prev[i]
+                if(prevIndex.id === currentNoteId){
+                    newArray.unshift({...prevIndex, body: text})
+                }else{
+                    newArray.push(prevIndex)
                 }
             }
             return newArray

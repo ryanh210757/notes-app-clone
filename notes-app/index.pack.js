@@ -1021,13 +1021,15 @@ function App() {
     }
 
     function updateNote(text) {
-        setNotes(function (oldNotes) {
+        // Put the most recently-modified note at the top
+        setNotes(function (prev) {
             var newArray = [];
-            for (var i = 0; i < oldNotes.length; i++) {
-                if (oldNotes[i].id === currentNoteId) {
-                    newArray.unshift(_extends({}, oldNotes, { body: text }));
+            for (var i = 0; i < prev.length; i++) {
+                var prevIndex = prev[i];
+                if (prevIndex.id === currentNoteId) {
+                    newArray.unshift(_extends({}, prevIndex, { body: text }));
                 } else {
-                    newArray.push(oldNotes);
+                    newArray.push(prevIndex);
                 }
             }
             return newArray;
@@ -1225,12 +1227,7 @@ function Sidebar(props) {
                 _react2.default.createElement(
                     "h4",
                     { className: "text-snippet" },
-                    note.body.split("/n")[0]
-                ),
-                _react2.default.createElement(
-                    "button",
-                    { className: "delete-btn" },
-                    _react2.default.createElement("i", { className: "gg-trash trash-icon" })
+                    note.body.split("\n")[0]
                 )
             )
         );
