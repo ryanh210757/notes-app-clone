@@ -1036,6 +1036,15 @@ function App() {
         });
     }
 
+    function deleteNote(event, noteId) {
+        event.stopPropagation();
+        setNotes(function (prev) {
+            return prev.filter(function (item) {
+                return item.id !== noteId;
+            });
+        });
+    }
+
     function findCurrentNote() {
         return notes.find(function (note) {
             return note.id === currentNoteId;
@@ -1056,7 +1065,8 @@ function App() {
                 notes: notes,
                 currentNote: findCurrentNote(),
                 setCurrentNoteId: setCurrentNoteId,
-                newNote: createNewNote
+                newNote: createNewNote,
+                deleteNote: deleteNote
             }),
             currentNoteId && notes.length > 0 && _react2.default.createElement(_Editor2.default, {
                 currentNote: findCurrentNote(),
@@ -1228,6 +1238,16 @@ function Sidebar(props) {
                     "h4",
                     { className: "text-snippet" },
                     note.body.split("\n")[0]
+                ),
+                _react2.default.createElement(
+                    "button",
+                    {
+                        className: "delete-btn",
+                        onClick: function onClick(event) {
+                            return props.deleteNote(event, note.id);
+                        }
+                    },
+                    _react2.default.createElement("i", { className: "gg-trash trash-icon" })
                 )
             )
         );
